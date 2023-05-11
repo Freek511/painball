@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+</head>
+<body>
+
+<style>
+  div{
+    margin: 10px 20px;
+  }
+  label{
+    margin-top: 10px
+  }
+  input{
+    margin: 5px 10px;
+    border-radius: 5px ;
+  }
+
+  .content{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin: 20px 40px;
+    border: thick double #000000;
+  }
+  #filter{
+    border: thick double #000000;
+    padding: 10px 10px
+  }
+</style>
+
+<div th:insert="~{header.html}"></div>
+
+<div style="display: flex; flex-direction: column">
+  <div id="filter" style="margin-bottom: 20px;   flex-wrap: wrap;">
+    <label>Название площадки</label>
+    <input name="name" id="name" style="width: 100px; height: fit-content">
+
+    <p>Выберите дату</p>
+    <div style="display: flex; flex-direction: row; width: 200px; align-items: center; justify-content: center">
+      <input  type="checkbox" name="dates" th:each="date : ${allDates}" th:value="${date}" th:text="${date}">
+    </div>
+
+    <p>Выберите время</p>
+    <div style="display: flex; flex-direction: row; width: 200px; align-items: center; justify-content: center">
+      <input type="checkbox" name="times" th:each="time : ${allTimes}" th:value="${time}" th:text="${time}">
+    </div>
+
+    <div>
+      <label>Минимальная Стоимость<input id="minPrice" name="minPrice" value="-1"></label>
+      <label>Максимальная Стоимость<input id="maxPrice" name="maxPrice" value="-1"></label>
+    </div>
+
+    <div>
+      <label>Минимальная Площадь<input id="minArea" name="minArea" value="-1"></label>
+      <label>Максимальная Площадь<input id="maxArea" name="maxArea" value="-1"></label>
+    </div>
+
+    <div>
+      <label>Минимальное количество людей<input id="minPeople" name="minPeople" value="-1"></label>
+      <label>Максимальное количество людей<input id="maxPeople" name="maxPeople" value="-1"></label>
+    </div>
+
+    <button style="width: fit-content;height: fit-content" id="filterClothes">Отфильтровать</button>
+    <script>
+      let filterObj = {
+        name: null,
+        dates: [],
+        times: [],
+        minPrice: -1,
+        maxPrice: -1,
+        minPeople: -1,
+        maxPeople: -1,
+        minArea: -1,
+        maxArea: -1
+      }
+      let filterButton = document.getElementById('filterClothes')
+      filterButton.addEventListener('click', ()=> {
+        filterObj.name = document.getElementById('name').value;
+
+        let dates = document.querySelectorAll('input[name=dates]:checked');
+        for (let i =0 ;i < dates.length;i++) {
+          filterObj.dates.push(dates[i].value);
+        }
+
+        let time = document.querySelectorAll('input[name=times]:checked');
+        for (let i =0 ;i < time.length;i++) {
+          filterObj.dates.push(time[i].value);
+        }
+
+        filterObj.minPrice = Number(document.getElementById('minPrice').value);
+        filterObj.maxPrice = Number(document.getElementById('maxPrice').value);
+        filterObj.minArea = Number(document.getElementById('minArea').value);
+        filterObj.maxArea = Number(document.getElementById('maxArea').value);
+        filterObj.minPeople = Number(document.getElementById('minPeople').value);
+        filterObj.maxPeople = Number(document.getElementById('maxPeople').value);
+
+        fetch("/playgrounds/all/filtered",
+                {
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  method: "POST",
+                  body: JSON.stringify(filterObj)
+                })
+                .then(function(res){ return res.text(); })
+                .then(function(html){ document.getElementById("list-of-pg").innerHTML = html;  });
+
+
+
+
+      });
+    </script>
+
+
+  </div>
+
+</div>
+<div class="content" style="display: flex" id="list-of-pg">
+  <div th:each="pg : ${allPgs}">
+    <a style="text-decoration: none; color: black" th:href="${'/playgrounds/' + pg.id}">
+      <img width="200" height="200" th:src="${'/playgrounds/image/' + pg.name + pg.price}">
+      <p th:text="${pg.name}"></p>
+      <p th:text="${pg.description}"></p>
+      <p th:text="${'Цена:' + pg.price}"></p>
+      <p th:text="${'Площадь: ' + pg.area}"></p>
+      <p th:text="${'Количестов людей до: ' + pg.maxPeople}"></p>
+      <p th:text="${'Доступые даты: '}"> </p>
+      <div style="display: flex; justify-content: start; align-items: center ">
+        <p th:each="date : ${pg.dates}" th:value="${date}" th:text="${date}" style="margin: 10px 10px;"> </p>
+      </div>
+      <p th:text="${'Доступное время: '}"> </p>
+      <div style="display: flex; justify-content: start; align-items: center ">
+        <p th:each="time : ${pg.times}" th:value="${time}" th:text="${time}" style="margin: 10px 10px;"> </p>
+      </div>
+    </a>
+
+  </div>
+
+</div>
+
+</div>
+
+</body>
+</html>

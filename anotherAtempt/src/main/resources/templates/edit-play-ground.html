@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:insert="~{header.html}"></div>
+
+
+<form action="#" method="post"  enctype="multipart/form-data" style="display: flex; flex-direction: column">
+    <input hidden th:value="${pgData.id}" type="number" name="id">
+
+    <label for="name">Name</label>
+    <input th:value="${pgData.name}" id="name" type="text" name="name" required>
+
+    <label for="description">Description</label>
+    <input  th:value="${pgData.description}" id="description" type="text" name="description" required>
+
+    <div>
+        <label>Times</label>
+
+        <label>10:00
+            <input  type="checkbox" name="Times" value="10:00" th:checked="${pgData.times.contains('10:00')}"/>
+        </label>
+
+        <label>12:00
+            <input type="checkbox" name="Times" value="12:00" th:checked="${pgData.times.contains('12:00')}"/>
+        </label>
+
+        <label>14:00
+            <input type="checkbox" name="Times" value="14:00" th:checked="${pgData.times.contains('14:00')}"/>
+        </label>
+
+        <label>16:00
+            <input type="checkbox" name="Times" value="16:00" th:checked="${pgData.times.contains('16:00')}" />
+        </label>
+
+        <label>18:00
+            <input type="checkbox" name="Times" value="18:00" th:checked="${pgData.times.contains('18:00')}" />
+        </label>
+
+        <label>20:00
+            <input type="checkbox" name="Times" value="20:00" th:checked="${pgData.times.contains('20:00')}"/>
+        </label>
+    </div>
+
+    <div>
+        <label>Dates</label>
+
+        <label>Today
+            <input type="checkbox" name="dates" value="Today" th:checked="${pgData.dates.contains('Today')}">
+        </label>
+
+        <label>Tomorrow
+            <input type="checkbox" name="dates" value="Tomorrow" th:checked="${pgData.dates.contains('Tomorrow')}">
+        </label>
+
+    </div>
+
+
+
+    <label for="price">Price</label>
+    <input th:value="${pgData.price}" id="price" type="text" name="price" required>
+
+    <label for="price">Area</label>
+    <input th:value="${pgData.area}" id="area" type="text" name="area" required>
+
+    <label for="price">Price</label>
+    <input th:value="${pgData.maxPeople}" id="maxPeople" type="text" name="maxPeople" required>
+
+    <label for="img">Img</label>
+    <input  id="img" type="file" name="img">
+
+
+    <input type="submit" value="Save changes">
+
+</form>
+
+<script>
+    FormData
+    var object = {};
+    formData.forEach(function(value, key){
+        object[key] = value;
+    });
+    var json = JSON.stringify(object);
+
+</script>
+
+</body>
+</html>

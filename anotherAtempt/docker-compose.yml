@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  anotheratempt:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres_db
+    environment:
+      - spring.datasource.url=jdbc:postgresql://localhost:5432/anotherAtempt
+
+  postgres_db:
+    image: postgres
+    restart: always
+    networks:
+      - backend
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=S13e07r1999Ey
+      - POSTGRES_DB=anotherAtempt
+    ports:
+      - "5432:5432"
+
+networks:
+  backend:
+    driver: bridge

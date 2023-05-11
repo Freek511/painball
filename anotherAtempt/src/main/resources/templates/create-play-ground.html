@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div th:insert="~{header.html}"></div>
+
+
+<form action="#" method="post"  enctype="multipart/form-data" style="display: flex; flex-direction: column">
+  <label for="name">Name</label>
+  <input id="name" type="text" name="name" required>
+
+  <label for="description">Description</label>
+  <input  id="description" type="text" name="description" required>
+
+  <div>
+    <label> Time: </label>
+    <label>10:00<input  type="checkbox" name="times" value="10:00" /> </label>
+    <label>12:00<input type="checkbox" name="times" value="12:00"/> </label>
+    <label>14:00<input type="checkbox" name="times" value="14:00" /></label>
+    <label>16:00<input type="checkbox" name="times" value="16:00" /></label>
+    <label>18:00<input type="checkbox" name="times" value="18:00" /></label>
+    <label>20:00<input type="checkbox" name="times" value="20:00" /></label>
+  </div>
+
+  <div>
+    <label>Dates:</label>
+    <label>Today<input type="checkbox" name="dates" value="Today" ></label>
+    <label>Tomorrow<input type="checkbox" name="dates" value="Tomorrow" ></label>
+  </div>
+
+  <label for="price">Price</label>
+  <input  id="price" type="text" name="price" required>
+
+  <label for="area">Area</label>
+  <input  id="area" type="text" name="area" required>
+
+  <label for="maxPeople">Max people</label>
+  <input  id="maxPeople" type="text" name="maxPeople" required>
+
+  <label for="img">Img</label>
+  <input  id="img" type="file" name="img" required>
+
+  <input type="submit" value="Create">
+
+</form>
+
+<script>
+  FormData
+  var object = {};
+  formData.forEach(function(value, key){
+    object[key] = value;
+  });
+  var json = JSON.stringify(object);
+
+</script>
+
+</body>
+</html>

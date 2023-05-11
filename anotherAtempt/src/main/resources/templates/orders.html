@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div th:insert="~{header.html}"></div>
+<script>
+  function deleteCloth(id) {
+    fetch('/playgrounds/deleteFromOrder/' + id, {
+      credentials: "same-origin",
+      method: "post"
+    })
+            .then((response)=> {
+              return response.text();
+            })
+            .then((data) => {
+              document.body.innerHTML = data;
+            });
+
+  }
+</script>
+<h1>Your orders:</h1>
+<form action="#" method="post" >
+  <div style="display: flex">
+  <div th:each="data : ${orderData}" style="display: flex">
+    <div>
+      <input name="ids" type="checkbox" th:value="${data.playGround.id}">
+      <div>
+        <img th:src="${'/playgrounds/image/' + data.playGround.getName()+data.playGround.getPrice()}" width="50" height="50">
+      </div>
+      <div style="padding: 10px">
+        <a th:text="${data.playGround.name + ' ' + data.playGround.description}" name="name" th:href="${'/playgrounds/' + data.playGround.id}"
+        style="color: black"></a>
+      </div>
+      <div style="padding: 10px">
+        <p id="price" th:text="${data.playGround.price}+ ' &#8381'"></p>
+      </div>
+      <div style="padding: 10px">
+        <p id="color" th:text="${data.date}"></p>
+      </div>
+      <div style="padding: 10px">
+        <p id="size" th:text="${data.time}"></p>
+      </div>
+    </div>
+
+    <button type="button" th:onclick="'javascript:deleteCloth(' + ${data.id} + ')'" style="max-height: 15px"> X</button>
+
+    </div>
+  </div>
+
+
+
+  <input type="submit" value="Pay">
+</form>
+
+<div style="padding: 10px">
+  <p id="resultPrice" th:text="${'Total price: ' + T(freek.anotheratempt.Summer).sum(orderData) + '&#8381'}"></p>
+
+</div>
+
+
+
+</body>
+</html>

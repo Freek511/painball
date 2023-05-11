@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<body>
+<div th:insert="~{header.html}"></div>
+
+<div>
+  <div style="display: flex; width: 100%">
+    <img width="150" height="150" th:src="${'/playgrounds/image/' + pgData.name + pgData.price}">
+    <div style="display: block">
+      <p style="font-size: 20px" th:text="${'Price: ' + pgData.price}"></p>
+      <p th:text="${'Available dates :' + pgData.dates}" ></p>
+      <p th:text="${'Available colors :' + pgData.times}" ></p>
+      <p th:text="${'Area: ' + pgData.area}"></p>
+      <p th:text="${'MaxPeople: ' + pgData.maxPeople}"></p>
+    </div>
+    <div       sec:authorize="hasAnyAuthority('ADMIN')">
+      <form action="/change_page" id="change_page" method="get">
+        <input hidden name="pgid" type="number" th:value="${pgData.id}" >
+        <input type="submit" value="Enter in edit mode">
+      </form>
+      <form action="/delete_page" id="delete_page" method="post">
+        <input hidden name="pgid" type="number" th:value="${pgData.id}" >
+        <input type="submit" value="Delete page">
+      </form>
+    </div>
+
+  </div>
+  <form sec:authorize="isAuthenticated()" th:action="${'/playgrounds/addToOrder/' + pgData.id}" method="post">
+
+    <select name="date">
+      <option  th:each="date : ${pgData.dates.split(', ')}" th:text="${date}" th:value="${date}"></option>
+    </select>
+    <select name="time">
+      <option  th:each="time : ${pgData.times.split(', ')}" th:text="${time}" th:value="${time}"></option>
+    </select>
+    <input type="submit" value="Add to Basket"></form>
+  <div>
+    <p th:text="${pgData.description}"></p>
+  </div>
+</div>
+
+
+
+</body>
+</html>
