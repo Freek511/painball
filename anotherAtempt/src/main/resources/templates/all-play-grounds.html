@@ -40,12 +40,12 @@
     <input name="name" id="name" style="width: 100px; height: fit-content">
 
     <p>Выберите дату</p>
-    <div style="display: flex; flex-direction: row; width: 200px; align-items: center; justify-content: center">
+    <div style="display: flex; flex-direction: row; width: 200px; align-items: center;">
       <input  type="checkbox" name="dates" th:each="date : ${allDates}" th:value="${date}" th:text="${date}">
     </div>
 
     <p>Выберите время</p>
-    <div style="display: flex; flex-direction: row; width: 200px; align-items: center; justify-content: center">
+    <div style="display: flex; flex-direction: row; width: 200px; align-items: center;">
       <input type="checkbox" name="times" th:each="time : ${allTimes}" th:value="${time}" th:text="${time}">
     </div>
 
@@ -137,7 +137,6 @@
         <p th:each="time : ${pg.times}" th:value="${time}" th:text="${time}" style="margin: 10px 10px;"> </p>
       </div>
     </a>
-
   </div>
 
 </div>

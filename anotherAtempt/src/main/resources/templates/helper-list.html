@@ -1,0 +1,21 @@
+<div class="content" style="display: flex" id="list-of-pg">
+  <div th:each="pg : ${allPgs}">
+    <a style="text-decoration: none; color: black" th:href="${'/playgrounds/' + pg.id}">
+      <img width="200" height="200" th:src="${'/playgrounds/image/' + pg.name + pg.price}">
+      <p th:text="${pg.name}"></p>
+      <p th:text="${pg.description}"></p>
+      <p th:text="${'Цена:' + pg.price}"></p>
+      <p th:text="${'Площадь: ' + pg.area}"></p>
+      <p th:text="${'Количестов людей до: ' + pg.maxPeople}"></p>
+      <p th:text="${'Доступые даты: '}"> </p>
+      <div style="display: flex; justify-content: start; align-items: center ">
+        <p th:each="date : ${pg.dates}" th:value="${date}" th:text="${date}" style="margin: 10px 10px;"> </p>
+      </div>
+      <p th:text="${'Доступное время: '}"> </p>
+      <div style="display: flex; justify-content: start; align-items: center ">
+        <p th:each="time : ${pg.times}" th:value="${time}" th:text="${time}" style="margin: 10px 10px;"> </p>
+      </div>
+    </a>
+  </div>
+
+</div>

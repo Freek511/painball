@@ -40,7 +40,7 @@
     <select name="time">
       <option  th:each="time : ${pgData.times.split(', ')}" th:text="${time}" th:value="${time}"></option>
     </select>
-    <input type="submit" value="Add to Basket"></form>
+    <input type="submit" value="Book"></form>
   <div>
     <p th:text="${pgData.description}"></p>
   </div>
