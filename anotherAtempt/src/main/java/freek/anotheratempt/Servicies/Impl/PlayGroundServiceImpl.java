@@ -123,30 +123,24 @@ public class PlayGroundServiceImpl implements PlayGroundService {
             filteredPg = filteredPg
                     .stream()
                     .filter(
-                            f->f.getPrice() >= filter.minArea
+                            f->f.getArea() >= filter.minArea
                     ).toList();
         }
         if (filter.maxArea != -1) {
             filteredPg = filteredPg
                     .stream()
                     .filter(
-                            f->f.getPrice() <= filter.maxArea
+                            f->f.getArea() <= filter.maxArea
                     ).toList();
         }
         if (filter.minPeople != -1) {
             filteredPg = filteredPg
                     .stream()
                     .filter(
-                            f->f.getPrice() >= filter.minPeople
+                            f->f.getMaxPeople() >= filter.minPeople
                     ).toList();
         }
-        if (filter.maxPeople != -1) {
-            filteredPg = filteredPg
-                    .stream()
-                    .filter(
-                            f->f.getPrice() <= filter.maxPeople
-                    ).toList();
-        }
+
         return filteredPg;
     }
 

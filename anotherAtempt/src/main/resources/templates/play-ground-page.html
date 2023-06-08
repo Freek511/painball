@@ -11,14 +11,14 @@
 <div th:insert="~{header.html}"></div>
 
 <div>
-  <div style="display: flex; width: 100%">
+  <div style="display: flex; width: 100%; margin: 0 20px">
     <img width="150" height="150" th:src="${'/playgrounds/image/' + pgData.name + pgData.price}">
     <div style="display: block">
-      <p style="font-size: 20px" th:text="${'Price: ' + pgData.price}"></p>
-      <p th:text="${'Available dates :' + pgData.dates}" ></p>
-      <p th:text="${'Available colors :' + pgData.times}" ></p>
-      <p th:text="${'Area: ' + pgData.area}"></p>
-      <p th:text="${'MaxPeople: ' + pgData.maxPeople}"></p>
+      <p style="font-size: 20px" th:text="${'Цена: ' + pgData.price}"></p>
+      <p th:text="${'Доступные даты: ' + pgData.dates}" ></p>
+      <p th:text="${'Доступное время: ' + pgData.times}" ></p>
+      <p th:text="${'Площадь: ' + pgData.area + ' кв.м'}"></p>
+      <p th:text="${'Количество людей до: ' + pgData.maxPeople + ' человек'}"></p>
     </div>
     <div       sec:authorize="hasAnyAuthority('ADMIN')">
       <form action="/change_page" id="change_page" method="get">
@@ -40,7 +40,7 @@
     <select name="time">
       <option  th:each="time : ${pgData.times.split(', ')}" th:text="${time}" th:value="${time}"></option>
     </select>
-    <input type="submit" value="Book"></form>
+    <input type="submit" value="Оформить"></form>
   <div>
     <p th:text="${pgData.description}"></p>
   </div>
